@@ -5,6 +5,7 @@ export default function Login() {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -22,39 +23,59 @@ export default function Login() {
   }
 
   return (
-    <div className="login-page">
-      <div className="login-card">
-        <div className="brand login-brand">
+    <div className="login-wrapper">
+      <div className="login-card-glass">
+        
+        <div className="login-brand-center">
           <div className="brand-mark">VT</div>
-          <div>
-            <strong>VETEC</strong>
-            <span className="brand-sub">Engenharia · ERP</span>
-          </div>
+          <h2>Bem-vindo</h2>
+          <p>Acesse sua conta para continuar</p>
         </div>
 
-        <h1>Acessar o sistema</h1>
-        <p className="muted small">Use as credenciais fornecidas pelo administrador.</p>
-
-        <form onSubmit={submit} className="login-form">
-          <div className="field">
-            <label htmlFor="email">E-mail</label>
-            <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoFocus />
+        <form onSubmit={submit}>
+          <div className="login-input-wrap">
+            <input 
+              type="email" 
+              placeholder="E-mail corporativo" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              autoFocus
+            />
+            <i className="fa-regular fa-envelope input-icon"></i>
           </div>
-          <div className="field">
-            <label htmlFor="password">Senha</label>
-            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+
+          <div className="login-input-wrap">
+            <input 
+              type="password" 
+              placeholder="Sua senha" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
+            <i className="fa-solid fa-lock input-icon"></i>
           </div>
 
-          {error && <div className="alert alert-error">{error}</div>}
+          {error && <div style={{ color: '#fca5a5', fontSize: 13, marginBottom: 16, textAlign: 'center', background: 'rgba(239, 68, 68, 0.1)', padding: '8px', borderRadius: '8px' }}>{error}</div>}
 
-          <button className="btn btn-primary btn-block" disabled={loading}>
-            {loading ? 'Entrando...' : 'Entrar'}
+          <div className="login-options-glass">
+            <label>
+              <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} style={{ accentColor: '#3b82f6' }} />
+              Lembrar de mim
+            </label>
+            <a href="#" onClick={(e) => { e.preventDefault(); alert('Entre em contato com o administrador do sistema.'); }}>
+              Esqueceu a senha?
+            </a>
+          </div>
+
+          <button type="submit" className="btn-login-glass" disabled={loading}>
+            {loading ? 'Autenticando...' : 'Entrar no sistema'}
           </button>
         </form>
 
-        <p className="muted small login-foot">
-          Acesso restrito. Todas as operações são registradas em auditoria.
-        </p>
+        <div className="login-footer-glass">
+          VETEC Engenharia © {new Date().getFullYear()} · Todos os direitos reservados.
+        </div>
       </div>
     </div>
   );

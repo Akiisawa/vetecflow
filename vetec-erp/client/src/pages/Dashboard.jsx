@@ -6,7 +6,7 @@ import {
   LineChart, Line, PieChart, Pie, Cell, Legend
 } from 'recharts';
 
-const COLORS = ['#1d6fa5', '#2fa27a', '#d97706', '#b91c1c', '#6b7280', '#7c3aed', '#0891b2', '#be123c'];
+const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#ec4899', '#64748b'];
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
@@ -41,12 +41,14 @@ export default function Dashboard() {
           <h1>Dashboard executivo</h1>
           <p className="muted">Indicadores calculados a partir dos dados registrados.</p>
         </div>
-        <div className="toolbar-inline">
+        
+        <div className="toolbar-inline" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <input className="filter" type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
-          <span className="muted small">até</span>
+          <span className="muted">até</span>
           <input className="filter" type="date" value={to} onChange={(e) => setTo(e.target.value)} />
           {(from || to) && <button className="btn btn-ghost btn-sm" onClick={() => { setFrom(''); setTo(''); }}>Limpar</button>}
         </div>
+  
       </div>
 
       <div className="kpi-grid">
@@ -67,13 +69,13 @@ export default function Dashboard() {
         <Card title="Receitas e despesas por mês">
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={data.charts.monthly}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e6eaef" />
-              <XAxis dataKey="month" fontSize={12} />
-              <YAxis fontSize={12} />
-              <Tooltip formatter={(v) => money(v)} />
-              <Legend />
-              <Bar dataKey="revenue" name="Receitas" fill="#2fa27a" radius={[3, 3, 0, 0]} />
-              <Bar dataKey="expense" name="Despesas" fill="#b91c1c" radius={[3, 3, 0, 0]} />
+              <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(255,255,255,0.1)" />
+              <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} stroke="#94a3b8" />
+              <YAxis fontSize={12} tickLine={false} axisLine={false} stroke="#94a3b8" />
+              <Tooltip formatter={(v) => money(v)} contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff' }} itemStyle={{ color: '#fff' }} />
+              <Legend wrapperStyle={{ color: '#94a3b8' }} />
+              <Bar dataKey="revenue" name="Receitas" fill="#10b981" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="expense" name="Despesas" fill="#ef4444" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </Card>
@@ -81,10 +83,10 @@ export default function Dashboard() {
         <Card title="Resultado financeiro mensal">
           <ResponsiveContainer width="100%" height={260}>
             <LineChart data={data.charts.monthly.map((m) => ({ month: m.month, result: (m.revenue || 0) - (m.expense || 0) }))}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e6eaef" />
-              <XAxis dataKey="month" fontSize={12} />
-              <YAxis fontSize={12} />
-              <Tooltip formatter={(v) => money(v)} />
+              <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(255,255,255,0.1)" />
+              <XAxis dataKey="month" fontSize={12} tickLine={false} axisLine={false} stroke="#94a3b8" />
+              <YAxis fontSize={12} tickLine={false} axisLine={false} stroke="#94a3b8" />
+              <Tooltip formatter={(v) => money(v)} contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff' }} itemStyle={{ color: '#fff' }} />
               <Line type="monotone" dataKey="result" name="Resultado" stroke="#1d6fa5" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
@@ -97,7 +99,7 @@ export default function Dashboard() {
                 {data.charts.projectsByStatus.map((e, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Pie>
               <Tooltip />
-              <Legend />
+              <Legend wrapperStyle={{ color: '#94a3b8' }} />
             </PieChart>
           </ResponsiveContainer>
         </Card>
@@ -105,7 +107,7 @@ export default function Dashboard() {
         <Card title="Propostas por etapa">
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={data.charts.proposalsByStage} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="#e6eaef" />
+              <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(255,255,255,0.1)" />
               <XAxis type="number" fontSize={12} />
               <YAxis type="category" dataKey="status" width={110} fontSize={11} />
               <Tooltip />
@@ -117,10 +119,10 @@ export default function Dashboard() {
         <Card title="Receita por cliente">
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={data.charts.revenueByClient} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="#e6eaef" />
+              <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(255,255,255,0.1)" />
               <XAxis type="number" fontSize={12} />
               <YAxis type="category" dataKey="client" width={140} fontSize={11} />
-              <Tooltip formatter={(v) => money(v)} />
+              <Tooltip formatter={(v) => money(v)} contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff' }} itemStyle={{ color: '#fff' }} />
               <Bar dataKey="total" name="Receita" fill="#2fa27a" radius={[0, 3, 3, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -129,10 +131,10 @@ export default function Dashboard() {
         <Card title="Custos por projeto">
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={data.charts.costsByProject} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="#e6eaef" />
+              <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="rgba(255,255,255,0.1)" />
               <XAxis type="number" fontSize={12} />
               <YAxis type="category" dataKey="project" width={140} fontSize={11} />
-              <Tooltip formatter={(v) => money(v)} />
+              <Tooltip formatter={(v) => money(v)} contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff' }} itemStyle={{ color: '#fff' }} />
               <Bar dataKey="total" name="Custos" fill="#b91c1c" radius={[0, 3, 3, 0]} />
             </BarChart>
           </ResponsiveContainer>

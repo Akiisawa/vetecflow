@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './auth.jsx';
 import { LookupProvider } from './lookups.jsx';
@@ -25,12 +25,35 @@ import Reports from './pages/Reports.jsx';
 import Audit from './pages/Audit.jsx';
 import Users from './pages/Users.jsx';
 import { Spinner } from './ui.jsx';
+import Preloader from './components/Preloader.jsx';
 
 export default function App() {
   const { user, loading } = useAuth();
+  const [showPreloader, setShowPreloader] = useState(true);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
-  if (loading) {
-    return <div className="boot"><Spinner /><p className="muted">Carregando VETEC ERP...</p></div>;
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    // Preloader inicial (quando abre o site)
+    const timer = setTimeout(() => setShowPreloader(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Preloader ao fazer login (transição para o dashboard)
+    if (user) {
+      setShowPreloader(true);
+      const timer = setTimeout(() => setShowPreloader(false), 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [user]);
+
+  if (loading || showPreloader) {
+    return <Preloader />;
   }
 
   if (!user) {
@@ -46,7 +69,7 @@ export default function App() {
     <LookupProvider>
       <Routes>
         <Route path="/login" element={<Navigate to="/" replace />} />
-        <Route element={<Layout />}>
+        <Route element={<Layout theme={theme} setTheme={setTheme} />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/clients" element={<Clients />} />
           <Route path="/clients/:id" element={<ClientDetail />} />

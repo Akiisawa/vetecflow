@@ -90,7 +90,7 @@ export function Modal({ title, onClose, children, footer, wide }) {
       <div className={'modal ' + (wide ? 'modal-wide' : '')}>
         <header className="modal-head">
           <h3>{title}</h3>
-          <button className="icon-btn" onClick={onClose} aria-label="Fechar">×</button>
+          <button className="icon-btn" style={{ color: '#fff', fontSize: '24px' }} onClick={onClose} aria-label="Fechar">×</button>
         </header>
         <div className="modal-body">{children}</div>
         {footer && <footer className="modal-foot">{footer}</footer>}
