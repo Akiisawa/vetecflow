@@ -75,7 +75,7 @@ export default function Layout({ theme, setTheme }) {
     <div className="app-shell">
       <aside className={'sidebar ' + (sidebarOpen ? 'open' : '')}>
         <div className="brand">
-          <div className="brand-mark">VT</div>
+          <div className="brand-mark"><i className="fa-solid fa-industry"></i></div>
           <div>
             <strong>VETEC</strong>
             <span className="brand-sub">Industrial</span>

@@ -27,7 +27,7 @@ export default function Login() {
       <div className="login-card-glass">
         
         <div className="login-brand-center">
-          <div className="brand-mark">VT</div>
+          <div className="brand-mark login-brand-icon"><i className="fa-solid fa-industry"></i></div>
           <h2>Bem-vindo</h2>
           <p>Acesse sua conta para continuar</p>
         </div>

@@ -310,55 +310,6 @@ a:hover { text-decoration: underline; }
 
 
 /* =========================================
-   PRELOADER (ORIGINAL DO SITE)
-   ========================================= */
-#preloader {
-  position: fixed;
-  inset: 0;
-  background-color: var(--bg-body); /* Muda com o tema */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-#preloader.hide {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.preloader-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.preloader-logo {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 32px;
-  font-weight: 900;
-  color: var(--text-main); /* Muda com o tema */
-  letter-spacing: 12px;
-  margin-left: 12px; /* Compensa o letter-spacing para centralizar */
-  transition: color 0.3s ease;
-}
-
-.preloader-line {
-  width: 0;
-  height: 3px;
-  background: var(--brand);
-  border-radius: 3px;
-  animation: preloaderLineAnim 1s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
-}
-
-@keyframes preloaderLineAnim {
-  0% { width: 0; opacity: 0.3; }
-  100% { width: 140px; opacity: 1; }
-}
-
-/* =========================================
    SCROLLBARS CUSTOMIZADAS (GLOBAIS E KANBAN)
    ========================================= */
 ::-webkit-scrollbar {
@@ -465,4 +416,145 @@ a:hover { text-decoration: underline; }
 .card-actions .btn-sm {
   padding: 6px 12px;
   font-size: 12px;
+}
+
+/* --- Logo Imagem (Sidebar) --- */
+.brand-logo-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  object-fit: contain;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: #fff; /* Garante fundo branco caso a imagem tenha transparência */
+}
+
+/* =========================================
+   LOGO / ÍCONE DA MARCA (FONTAWESOME)
+   ========================================= */
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  flex-shrink: 0;
+}
+
+/* Ajuste específico para o ícone no Login */
+.login-brand-icon {
+  width: 56px;
+  height: 56px;
+  font-size: 24px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+}
+
+
+/* =========================================
+   PRELOADER PREMIUM (GLASSMORPHISM)
+   ========================================= */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#preloader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-glass-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 48px 64px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--card-shadow);
+  animation: preloaderFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Marca no Preloader */
+.preloader-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.preloader-logo-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+  animation: preloaderPulse 2s infinite alternate;
+}
+
+.preloader-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.preloader-brand-text strong {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: 1px;
+}
+
+.preloader-brand-text span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Anel de Carregamento */
+.preloader-ring {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--brand);
+  animation: preloaderSpin 1s linear infinite;
+}
+
+/* Animações */
+@keyframes preloaderSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes preloaderPulse {
+  0% { transform: scale(1); box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3); }
+  100% { transform: scale(1.05); box-shadow: 0 12px 32px rgba(37, 99, 235, 0.6); }
+}
+
+@keyframes preloaderFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
