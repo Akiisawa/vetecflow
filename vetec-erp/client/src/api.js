@@ -35,7 +35,7 @@ async function request(method, url, body, isForm) {
   if (!res.ok) {
     const err = new Error((data && data.error) || 'Erro ' + res.status);
     err.status = res.status;
-    if (res.status === 401 && !url.startsWith('/auth/login')) {
+    if (res.status === 401) {
       window.dispatchEvent(new CustomEvent('vetec:unauthorized'));
     }
     throw err;

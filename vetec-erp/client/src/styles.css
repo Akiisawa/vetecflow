@@ -558,3 +558,273 @@ a:hover { text-decoration: underline; }
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+
+
+/* =========================================
+   DASHBOARD PREMIUM & MODO TV
+   ========================================= */
+
+/* Overlay do Modo TV (Tela Cheia) */
+.tv-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-body);
+  z-index: 99999;
+  overflow-y: auto;
+  padding: 32px 48px;
+  animation: tvFadeIn 0.4s ease-out;
+}
+
+@keyframes tvFadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Grid de KPIs */
+.kpi-grid-premium {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.kpi-card-premium {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kpi-card-premium:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px rgba(0,0,0,0.1);
+}
+
+.kpi-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kpi-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.kpi-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.kpi-value {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+/* Grid de Gráficos */
+.charts-grid-premium {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.chart-card-premium {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-card-premium.span-2 {
+  grid-column: span 2;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.chart-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Ajuste do Recharts */
+.recharts-default-tooltip {
+  background-color: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 12px !important;
+}
+
+.recharts-text {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Responsividade do Dashboard */
+@media (max-width: 1200px) {
+  .charts-grid-premium { grid-template-columns: repeat(2, 1fr); }
+  .chart-card-premium.span-2 { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+  .charts-grid-premium { grid-template-columns: 1fr; }
+  .chart-card-premium.span-2 { grid-column: span 1; }
+  .tv-overlay { padding: 16px; }
+}
+
+/* =========================================
+   ANIMAÇÕES E MICRO-INTERAÇÕES
+   ========================================= */
+
+/* 1. Animação de entrada para qualquer página */
+@keyframes pageEnter {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.page {
+  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 2. Efeito Cascata nos Cards de KPI */
+@keyframes cardEnter {
+  0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.kpi-card-premium {
+  animation: cardEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.kpi-card-premium:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 28px -8px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+
+/* Cascata para os 8 KPIs */
+.kpi-card-premium:nth-child(1) { animation-delay: 0.05s; }
+.kpi-card-premium:nth-child(2) { animation-delay: 0.10s; }
+.kpi-card-premium:nth-child(3) { animation-delay: 0.15s; }
+.kpi-card-premium:nth-child(4) { animation-delay: 0.20s; }
+.kpi-card-premium:nth-child(5) { animation-delay: 0.25s; }
+.kpi-card-premium:nth-child(6) { animation-delay: 0.30s; }
+.kpi-card-premium:nth-child(7) { animation-delay: 0.35s; }
+.kpi-card-premium:nth-child(8) { animation-delay: 0.40s; }
+
+/* 3. Animação para os Cards de Gráficos */
+.chart-card-premium {
+  animation: cardEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-card-premium:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1);
+}
+
+.chart-card-premium:nth-child(1) { animation-delay: 0.2s; }
+.chart-card-premium:nth-child(2) { animation-delay: 0.3s; }
+.chart-card-premium:nth-child(3) { animation-delay: 0.4s; }
+.chart-card-premium:nth-child(4) { animation-delay: 0.5s; }
+
+/* 4. Animação das Tabelas (Linha por Linha) */
+@keyframes rowEnter {
+  0% { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.data-table tbody tr {
+  animation: rowEnter 0.3s ease-out backwards;
+}
+
+/* Aplica o atraso (delay) para as primeiras 15 linhas criarem o efeito cascata */
+.data-table tbody tr:nth-child(1) { animation-delay: 0.05s; }
+.data-table tbody tr:nth-child(2) { animation-delay: 0.10s; }
+.data-table tbody tr:nth-child(3) { animation-delay: 0.15s; }
+.data-table tbody tr:nth-child(4) { animation-delay: 0.20s; }
+.data-table tbody tr:nth-child(5) { animation-delay: 0.25s; }
+.data-table tbody tr:nth-child(6) { animation-delay: 0.30s; }
+.data-table tbody tr:nth-child(7) { animation-delay: 0.35s; }
+.data-table tbody tr:nth-child(8) { animation-delay: 0.40s; }
+.data-table tbody tr:nth-child(9) { animation-delay: 0.45s; }
+.data-table tbody tr:nth-child(10) { animation-delay: 0.50s; }
+.data-table tbody tr:nth-child(n+11) { animation-delay: 0.55s; }
+
+/* 5. Animação do Modal */
+@keyframes modalBackdropEnter {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to { opacity: 1; backdrop-filter: blur(4px); }
+}
+
+@keyframes modalContentEnter {
+  0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-backdrop {
+  animation: modalBackdropEnter 0.25s ease-out forwards;
+}
+
+.modal {
+  animation: modalContentEnter 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 6. Efeito no Botão Primário */
+.btn-primary {
+  transition: all 0.2s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.4);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* 7. Animação suave no Modo TV (Big Picture) */
+.tv-overlay {
+  animation: tvFadeIn 0.4s ease-out forwards;
+}
+
+/* 8. Skeleton Loader (Tela de carregamento de listas) */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.spinner {
+  animation: spin 0.8s linear infinite, pulse 1.5s ease-in-out infinite;
+}
+
+/* 9. Animação do Preloader */
+#preloader.hide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+}
